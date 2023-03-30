@@ -33,3 +33,6 @@ main.tfplan
 
 #terraform lock files
 *.terraform.*
+
+#pem keys
+*.pem
