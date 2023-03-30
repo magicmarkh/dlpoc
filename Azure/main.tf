@@ -256,7 +256,7 @@ resource "azurerm_windows_virtual_machine" "az-win-conn01" {
   location              = var.datacenter_location
   resource_group_name   = azurerm_resource_group.rg_1.name
   network_interface_ids = [azurerm_network_interface.win-conn-nic.id]
-  size                  = "Standard_B1ms"
+  size                  = "Standard_F8s_v2"
 
   os_disk {
     caching              = "ReadWrite"
