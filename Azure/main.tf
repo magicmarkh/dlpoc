@@ -283,6 +283,13 @@ resource "tls_private_key" "az_ssh_key"{
   algorithm = "RSA"
   rsa_bits = 4096
 }
+
+# Save key
+resource "local_file" "az_poc_ssh_key" {
+  filename = "${tls_private_key.az_ssh_key.key_name}.pem"
+  content  = tls_private_key.az_ssh_key.private_key_pem
+}
+
 #Create Linux VM's
 resource "azurerm_linux_virtual_machine" "dpa-ssh-conn01" {
   name = "az-dpa-ssh-conn01"
