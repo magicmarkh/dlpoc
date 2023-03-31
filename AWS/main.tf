@@ -100,6 +100,7 @@ resource "aws_instance" "win-tgt01" {
 
   tags = {
     Name = "win-tgt01"
+    dpa = "dev"
   }
 }
 
