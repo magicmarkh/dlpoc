@@ -286,7 +286,8 @@ resource "tls_private_key" "az_ssh_key"{
 
 # Save key
 resource "local_file" "az_poc_ssh_key" {
-  filename = "${tls_private_key.az_ssh_key.key_name}.pem"
+ //filename = "${tls_private_key.az_ssh_key.}.pem"
+  filename = "az_poc_ssh_key.pem"
   content  = tls_private_key.az_ssh_key.private_key_pem
 }
 
