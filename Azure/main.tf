@@ -226,8 +226,8 @@ resource "azurerm_windows_virtual_machine" "dc01" {
 }
 
 
-resource "azurerm_windows_virtual_machine" "wintgt01" {
-  name                  = "wintgt01"
+resource "azurerm_windows_virtual_machine" "win-tgt01" {
+  name                  = "win-tgt01"
   admin_username        = "azureuser"
   admin_password        = random_password.password.result
   location              = var.datacenter_location
@@ -246,11 +246,14 @@ resource "azurerm_windows_virtual_machine" "wintgt01" {
     sku       = "2022-datacenter-azure-edition"
     version   = "latest"
   }
+  tags = {
+    "dpa" = "dev"
+  }
 }
 
 
-resource "azurerm_windows_virtual_machine" "az-win-conn01" {
-  name                  = "az-win-conn01"
+resource "azurerm_windows_virtual_machine" "win-conn01" {
+  name                  = "win-conn01"
   admin_username        = "azureuser"
   admin_password        = random_password.password.result
   location              = var.datacenter_location
@@ -292,8 +295,8 @@ resource "local_file" "az_poc_ssh_key" {
 }
 
 #Create Linux VM's
-resource "azurerm_linux_virtual_machine" "dpa-ssh-conn01" {
-  name = "az-dpa-ssh-conn01"
+resource "azurerm_linux_virtual_machine" "lin-conn01" {
+  name = "lin-conn01"
   location = var.datacenter_location
   resource_group_name = azurerm_resource_group.rg_1.name
   network_interface_ids = [azurerm_network_interface.lin-conn-nic.id]
@@ -311,7 +314,7 @@ resource "azurerm_linux_virtual_machine" "dpa-ssh-conn01" {
     version = "latest"
   }
 
-  computer_name = "az-dpa-ssh-conn01"
+  computer_name = "lin-conn01"
   admin_username = "azureuser"
   disable_password_authentication = true
 
@@ -325,8 +328,8 @@ resource "azurerm_linux_virtual_machine" "dpa-ssh-conn01" {
   }
 }
 
-resource "azurerm_linux_virtual_machine" "lintgt01" {
-  name = "lintgt01"
+resource "azurerm_linux_virtual_machine" "lin-tgt01" {
+  name = "lin-tgt01"
   location = var.datacenter_location
   resource_group_name = azurerm_resource_group.rg_1.name
   network_interface_ids = [azurerm_network_interface.lintgt01-nic.id]
@@ -344,7 +347,7 @@ resource "azurerm_linux_virtual_machine" "lintgt01" {
     version = "latest"
   }
 
-  computer_name = "lintgt01"
+  computer_name = "lin-tgt01"
   admin_username = "azureuser"
   disable_password_authentication = true
 
@@ -356,6 +359,10 @@ resource "azurerm_linux_virtual_machine" "lintgt01" {
   boot_diagnostics {
     storage_account_uri = azurerm_storage_account.my_storage_account.primary_blob_endpoint
   }
+
+  tags ={
+    "dpa" = "dev"
+  }  
 }
 # Generate random text 
 resource "random_id" "random_id" {
