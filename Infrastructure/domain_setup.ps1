@@ -35,5 +35,5 @@ New-ADUser -Name "svc_bind_user" -AccountPassword $bind_user_secure_password -En
 
 
 #user password (only use for POC purposes in closed environments)
-Write-Host "svc_lcl_creator password: " + $strong_user_initial_password 
-Write-HOst "svc_bind_user password: " + $bind_user_intial_password
+Write-Host "svc_lcl_creator password   :   " $strong_user_initial_password 
+Write-HOst "svc_bind_user password     :   " $bind_user_intial_password
