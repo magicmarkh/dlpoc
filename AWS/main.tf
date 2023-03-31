@@ -65,8 +65,8 @@ resource "aws_instance" "dc01" {
   vpc_security_group_ids = [aws_security_group.sg_rdp.id]
   associate_public_ip_address = false
   key_name = aws_key_pair.poc_key_pair.key_name
-  private_ip = "172.31.0.5"
-  subnet_id = var.poc_subnet
+  private_ip = "172.31.16.10"
+  subnet_id = var.poc_private_subnet
 
   tags = {
     Name = "dc01"
@@ -80,8 +80,8 @@ resource "aws_instance" "win-conn01" {
   vpc_security_group_ids = [aws_security_group.sg_rdp.id]
   associate_public_ip_address = true
   key_name = aws_key_pair.poc_key_pair.key_name
-  private_ip = "172.31.0.10"
-  subnet_id = var.poc_subnet
+  private_ip = "172.31.0.15"
+  subnet_id = var.poc_public_subnet
 
   tags = {
     Name = "win-conn01"
@@ -95,8 +95,8 @@ resource "aws_instance" "win-tgt01" {
   vpc_security_group_ids = [aws_security_group.sg_rdp.id]
   associate_public_ip_address = false
   key_name = aws_key_pair.poc_key_pair.key_name
-  private_ip = "172.31.0.15"
-  subnet_id = var.poc_subnet
+  private_ip = "172.31.16.20"
+  subnet_id = var.poc_private_subnet
 
   tags = {
     Name = "win-tgt01"
@@ -111,8 +111,8 @@ resource "aws_instance" "lin-conn01" {
   vpc_security_group_ids = [aws_security_group.sg_ssh.id]
   associate_public_ip_address = true
   key_name = aws_key_pair.poc_key_pair.key_name
-  private_ip = "172.31.0.20"
-  subnet_id = var.poc_subnet
+  private_ip = "172.31.0.25"
+  subnet_id = var.poc_public_subnet
 
   tags = {
     Name = "lin-conn01"
@@ -126,8 +126,8 @@ resource "aws_instance" "lin-tgt01" {
   vpc_security_group_ids = [aws_security_group.sg_ssh.id]
   associate_public_ip_address = false
   key_name = aws_key_pair.poc_key_pair.key_name
-  private_ip = "172.31.0.25"
-  subnet_id = var.poc_subnet
+  private_ip = "172.31.16.30"
+  subnet_id = var.poc_private_subnet
 
   tags = {
     Name = "lin-tgt01"
