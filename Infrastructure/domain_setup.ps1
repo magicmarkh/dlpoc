@@ -18,8 +18,11 @@ function Get-StrongPassword ([Parameter(Mandatory = $true)][int]$PasswordLenght)
 }
 
 
-$initial_password = Get-StrongPassword(24)
-$secure_password = ConvertTo-SecureString $initial_password -AsPlainText -Force
+$strong_user_initial_password = Get-StrongPassword(24)
+$strong_user_secure_password = ConvertTo-SecureString $strong_user_initial_password -AsPlainText -Force
+
+$bind_user_intial_password = Get-StrongPassword(24)
+$bind_user_secure_password = ConvertTo-SecureString $bind_user_intial_password -AsPlainText -Force
 #create OU structure
 New-ADOrganizationalUnit -Name "CyberArk" -Path $base_context
 New-ADOrganizationalUnit -Name "Users" -Path "OU=CyberArk,$base_context"
@@ -27,8 +30,10 @@ New-ADOrganizationalUnit -Name "Servers" -Path "OU=CyberArk,$base_context"
 New-ADOrganizationalUnit -Name "Service_Accounts" -Path "OU=CyberArk,$base_context"
 
 #create users needed for POC
-New-ADUser -Name "svc_lcl_creator" -AccountPassword $secure_password -Enabled $true -Path "OU=Service_Accounts,OU=CyberArk,$base_context"
+New-ADUser -Name "svc_lcl_creator" -AccountPassword $strong_user_secure_password -Enabled $true -Path "OU=Service_Accounts,OU=CyberArk,$base_context"
+New-ADUser -Name "svc_bind_user" -AccountPassword $bind_user_secure_password -Enabled $true -Path "OU=Service_Accounts,OU=CyberArk,$base_context"
 
 
 #user password (only use for POC purposes in closed environments)
-Write-Host $initial_password 
+Write-Host "svc_lcl_creator password: " + $strong_user_initial_password 
+Write-HOst "svc_bind_user password: " + $bind_user_intial_password
