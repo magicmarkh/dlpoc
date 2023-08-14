@@ -12,3 +12,8 @@ variable "linux_image" {
   default = "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20230812"
   description = "image version"
 }
+
+variable "connector_ip" {
+  default = "34.29.135.252"
+  description = "public connector ip"
+}

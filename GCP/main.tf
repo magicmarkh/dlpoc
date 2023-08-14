@@ -28,9 +28,6 @@ resource "google_compute_instance" "lin-tgt01" {
   name         = "lin-tgt01"
 
   network_interface {
-    access_config {
-      network_tier = "PREMIUM"
-    }
     network_ip = "10.128.10.25"
     subnetwork = var.instance_subnetwork
   }
@@ -86,6 +83,7 @@ resource "google_compute_instance" "lin-conn" {
   network_interface {
     access_config {
       network_tier = "PREMIUM"
+      nat_ip = var.connector_ip
     }
     network_ip = "10.128.10.20"
     subnetwork = var.instance_subnetwork
